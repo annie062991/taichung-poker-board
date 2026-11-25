@@ -28,6 +28,53 @@ header.rail{background:linear-gradient(180deg,var(--rail-hi),var(--rail));border
 .rail-in{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 14px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;justify-content:space-between}
 h1{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,4vw,32px);margin:0;letter-spacing:.04em;text-wrap:balance}
 h1 .suit{color:var(--red)}
+h1 .crown{color:#ffd447;text-shadow:0 0 18px rgba(255,212,71,.5)}
+h1 .h1-sub{font-size:.62em;color:var(--ivory-dim);font-weight:600;margin-left:6px}
+.ut-hero{margin:16px 0 6px;border-radius:16px;padding:2px;background:linear-gradient(135deg,#fff1a8,#ffd447 35%,#b8860b 70%,#ffe27a)}
+.ut-in{border-radius:14px;background:radial-gradient(120% 140% at 0% 0%,#20543f,#0b3325 70%);padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr);gap:18px;align-items:center}
+.ut-name{font:900 15px var(--f-display);color:#ffd447;letter-spacing:.08em}
+.ut-big{font:500 clamp(56px,9vw,88px)/1 var(--f-num);color:#ffe27a;text-shadow:0 2px 0 rgba(0,0,0,.4);font-variant-numeric:tabular-nums}
+.ut-big small{font:700 18px var(--f-body);color:var(--ivory-dim);margin-left:6px}
+.ut-day{font-size:12px;color:var(--ivory-dim)}
+.ut-rank{display:flex;flex-direction:column;gap:6px}
+.ut-rank .r{font:900 32px var(--f-display);color:var(--ivory)}
+.ut-rank .r b{color:#ffd447}
+.ut-line{font-size:13px;color:var(--ivory-dim)}
+.ut-line b{color:var(--ivory);font-family:var(--f-num)}
+.up-good{color:#7fe0a3!important}.down-bad{color:#ff9a8f!important}
+.ut-vs{display:grid;gap:6px}
+.vsrow{display:grid;grid-template-columns:96px 1fr 30px;gap:8px;align-items:center;font-size:12px}
+.vsrow .t{height:12px;border-radius:6px;background:rgba(0,0,0,.3);overflow:hidden}
+.vsrow .t i{display:block;height:100%;background:var(--c);border-radius:6px}
+.vsrow b{font:500 12px var(--f-num);text-align:right}
+.vsrow.me span:first-child{color:#ffd447;font-weight:700}
+.ut-levels{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px dashed rgba(255,212,71,.35);padding-top:12px;font-size:12px;color:var(--ivory-dim)}
+.ut-levels .lvchip{display:inline-flex;gap:6px;align-items:center;background:rgba(0,0,0,.25);border:1px solid rgba(255,212,71,.4);border-radius:999px;padding:3px 10px;color:var(--ivory)}
+.ut-levels .lvchip b{font-family:var(--f-num);color:#ffd447}
+.rank-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}
+.rtile{background:var(--card);color:var(--ink);border-radius:10px;padding:8px 10px;border-top:5px solid var(--c);display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:baseline;min-width:0}
+.rtile .rn{font:500 12px var(--f-num);color:var(--red)}
+.rtile .rname{font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rtile .rc{grid-column:1/-1;font:500 24px var(--f-num)}
+.rtile .rc small{font:500 12px var(--f-body);color:#6b6356}
+.ev.ut{background:#ffd447;border-left:4px solid #8a6200;font-weight:700;box-shadow:0 0 0 1px #8a6200,0 0 10px rgba(255,212,71,.5)}
+.cal .day .ev:not(.ut){opacity:.88}
+.ev.ut{white-space:normal;line-height:1.25;font-size:11.5px}
+.ev.ut.past{opacity:.8}
+.ut-ev.past{opacity:.8}
+.ut-strip{margin-top:12px;border:2px solid #ffd447;border-radius:12px;padding:10px 12px;background:linear-gradient(135deg,rgba(255,212,71,.18),rgba(255,212,71,.04))}
+.ut-strip-h{font:900 15px var(--f-display);color:#ffd447;margin-bottom:8px;letter-spacing:.06em}
+.ut-strip-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.ut-ev{appearance:none;text-align:left;cursor:pointer;border:0;border-radius:9px;padding:8px 10px;background:linear-gradient(160deg,#ffe58a,#f4c542);color:var(--ink);display:flex;flex-direction:column;gap:2px;font-family:var(--f-body);min-width:0}
+.ut-ev.past{opacity:.55}
+.ut-ev .d{font:500 12px var(--f-num);color:#7a5600}
+.ut-ev .n{font-weight:900;font-size:14px}
+.ut-ev .p{font-size:11px;color:#5d4a10}
+.up.ut{background:rgba(255,212,71,.18);border-left-color:#ffd447}
+.up.ut .n{color:#ffd447}
+.pr.ut{background:linear-gradient(170deg,#fff6d1,#ffe58a);box-shadow:0 0 0 3px #ffd447}
+.rtile.me{background:linear-gradient(160deg,#ffe58a,#f4c542);box-shadow:0 0 0 2px #ffd447}
+@media (max-width:760px){.ut-in{grid-template-columns:1fr}}
 .sub{color:var(--ivory-dim);font-size:13px}
 .status{font-size:12px;color:var(--ivory-dim);display:flex;gap:8px;align-items:center}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
@@ -124,8 +171,8 @@ svg text{fill:var(--ivory-dim);font:11px var(--f-num)}
 
 <header class="rail"><div class="rail-in">
   <div>
-    <h1><span class="suit">♠</span> 台中德撲牌桌情報</h1>
-    <div class="sub">UT Poker 對標台中各協會：每日場次、賽事月曆與優惠活動，資料來自 Google 試算表</div>
+    <h1><span class="crown">♛</span> UT Poker <span class="h1-sub">台中牌桌對標</span></h1>
+    <div class="sub">從 UT Poker 看台中各協會的每日場次、賽事月曆與優惠活動</div>
   </div>
   <div class="status"><span class="dot" id="dot"></span><span id="statusText">正在連線 Google 試算表…</span></div>
 </div></header>
@@ -140,7 +187,7 @@ svg text{fill:var(--ivory-dim);font:11px var(--f-num)}
 
   <section class="panel" id="view-daily" role="tabpanel">
     <div class="row" style="justify-content:space-between">
-      <div><h2>每日場次對標</h2><p class="hint">UT Poker 固定在最上面，其他協會依場次多寡排序；點協會名稱可以看那天的每一場</p></div>
+      <div><h2>每日場次對標</h2></div>
       <label class="row" style="gap:8px">營業日 <select id="daySel"></select></label>
     </div>
     <div id="dailyBody"><div class="msg"><b>洗牌中…</b>正在讀取「場次明細」</div></div>
@@ -190,6 +237,8 @@ const RANGES = {
 const COLORS = {"市政華人":"#f28b82","樂玩北屯":"#8ab4f8","樂玩南屯":"#5f8fe0","樂玩逢甲":"#b5d0ff","菁英撲克":"#f6c75a","秀咖":"#c3a6ff","跑跑":"#ffab66","Check Raise":"#7fd49a","Cbet台中":"#6fd6cf","IPC洲際":"#b8b8b8","撲洛":"#ff9fcf","City Poker一中":"#c6e06a","UT Poker":"#ffd447","樂玩（三店）":"#8ab4f8"};
 const SUIT = {"錦標賽":"♠","抽獎":"♦","活動":"♣","公休":"♥"};
 const ME = "UT Poker";
+const REG = ["1200","3400","6600","11000","21500","32000"];
+const lvOf = lv => REG.includes(String(lv).trim()) ? String(lv).trim() : (String(lv).includes("未分級") ? null : "其他");
 const color = n => COLORS[n] || "#d9d3c2";
 const label = n => n===ME ? "♛ "+n : n;
 const state = {games:null, cal:null, promos:null, assoc:null, errors:{}, day:"", selAssoc:"", month:null, hidden:new Set(), sel:null};
@@ -199,7 +248,7 @@ function el(tag, attrs, ...kids){
   const e = document.createElement(tag);
   for (const [k,v] of Object.entries(attrs||{})){
     if (v==null) continue;
-    if (k==="class") e.className=v; else if (k==="style") e.style.cssText=v;
+    if (k==="class") e.className=v; else if (k==="style") e.style.cssText+=";"+v;
     else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
     else if (k==="cvar") e.style.setProperty("--c", v);
     else e.setAttribute(k, v);
@@ -274,19 +323,38 @@ function renderDaily(){
   sel.replaceChildren(...days.map(d=>el("option",{value:d, selected:d===state.day?"":null}, d+"（"+"日一二三四五六"[new Date(d+"T00:00:00").getDay()]+"）")));
   const g=state.games.filter(x=>x.day===state.day);
   const assocs=assocList();
-  const levels=[...new Set(g.map(x=>x.level))].sort(levelSort);
-  const count=(a,l)=>g.filter(x=>x.assoc===a&&(l==null||x.level===l)).length;
+  const levels=[...REG,"其他"];
+  const count=(a,l)=>g.filter(x=>x.assoc===a&&(l==null||lvOf(x.level)===l)).length;
+  const countAll=l=>g.filter(x=>lvOf(x.level)===l).length;
   const ranked=assocs.filter(a=>count(a)>0).sort((a,b)=>count(b)-count(a));
   const mine=count(ME), top=ranked[0];
   const rank = mine ? ranked.filter(a=>count(a)>mine).length+1 : null;
   const others=ranked.filter(a=>a!==ME);
-  const hotLevel=levels.slice().sort((a,b)=>count(null,b)-count(null,a))[0];
-  const countAll=l=>g.filter(x=>x.level===l).length;
+  const othersAvg = others.length ? others.reduce((s,a)=>s+count(a),0)/others.length : 0;
+  const ahead = ranked.filter(a=>a!==ME && count(a)>mine);
+  const behind = ranked.filter(a=>a!==ME && count(a)<=mine);
+  const chaser = behind[0], target = ahead[ahead.length-1];
+  /* UT hero */
+  const vsList = [...new Set([top, target, ME, chaser].filter(Boolean))].sort((a,b)=>count(b)-count(a));
+  const vmax = Math.max(1, ...vsList.map(a=>count(a)));
+  const ratio = othersAvg ? mine/othersAvg : 0;
+  const lines=[];
+  if (mine){
+    if (rank===1){ lines.push(el("div",{class:"ut-line"},"領先第 2 名 ",chaser?el("b",{class:"up-good"},"+"+(mine-count(chaser))+" 場"):"—",chaser?"（"+chaser+"）":"")); }
+    else { lines.push(el("div",{class:"ut-line"},"距第 1 名 ",el("b",{class:"down-bad"},(count(top)-mine)+" 場"),"（"+top+"）")); if(target&&target!==top) lines.push(el("div",{class:"ut-line"},"追上前一名還差 ",el("b",{},(count(target)-mine)+" 場"),"（"+target+"）")); }
+    lines.push(el("div",{class:"ut-line"},"其他協會平均 ",el("b",{},(Math.round(othersAvg*10)/10)+" 場"),"，UT 是 ",el("b",{class:ratio>=1?"up-good":"down-bad"},(Math.round(ratio*10)/10)+" 倍")));
+  }
+  const utLevels = levels.filter(l=>count(ME,l)>0); const utUnclassified = g.filter(x=>x.assoc===ME&&lvOf(x.level)===null).length;
+  const hero=el("div",{class:"ut-hero"},el("div",{class:"ut-in"},
+    el("div",{},el("div",{class:"ut-name"},"♛ UT POKER 當日場次"),el("div",{class:"ut-big"},mine,el("small",{},"場")),el("div",{class:"ut-day"},state.day+" 營業日")),
+    el("div",{class:"ut-rank"},el("div",{class:"r"},rank?["第 ",el("b",{},rank)," 名"]:"—"),el("div",{class:"ut-line"},"共 "+ranked.length+" 家有開賽"),...lines),
+    el("div",{class:"ut-vs"},...vsList.map(a=>el("div",{class:"vsrow"+(a===ME?" me":"")},el("span",{},label(a)),el("span",{class:"t"},el("i",{cvar:color(a),style:`width:${count(a)/vmax*100}%`})),el("b",{},count(a))))),
+    (utLevels.length||utUnclassified)?el("div",{class:"ut-levels"},"UT 各級別：",...utLevels.map(l=>el("span",{class:"lvchip"},l,el("b",{},count(ME,l)))),utUnclassified?el("span",{class:"lvchip"},"未分級",el("b",{},utUnclassified)):null):null
+  ));
+  const hot=REG.slice().sort((a,b)=>countAll(b)-countAll(a))[0];
   const stats=el("div",{class:"stats"},
-    el("div",{class:"stat me"},el("span",{class:"corner"},"♛"),el("div",{class:"k"},"UT Poker 當日場次"),el("div",{class:"v"},mine),el("div",{class:"s"},mine&&top&&top!==ME?`比第一名少 ${count(top)-mine} 場`:(mine?"今天場次最多":"這天沒有記到 UT 的場次"))),
-    el("div",{class:"stat"},el("span",{class:"corner"},"♠"),el("div",{class:"k"},"UT Poker 排名"),el("div",{class:"v"},rank?`第 ${rank} 名`:"—"),el("div",{class:"s"},`共 ${ranked.length} 家有開賽`)),
     el("div",{class:"stat"},el("span",{class:"corner"},"♥"),el("div",{class:"k"},"場次最多"),el("div",{class:"v",style:"font-size:20px;font-family:var(--f-display);padding-top:8px"},top?label(top):"-"),el("div",{class:"s"},top?`${count(top)} 場`:"")),
-    el("div",{class:"stat"},el("span",{class:"corner"},"♣"),el("div",{class:"k"},"最熱門級別"),el("div",{class:"v"},levels.slice().sort((a,b)=>countAll(b)-countAll(a))[0]||"-"),el("div",{class:"s"},levels.length?`全台中共 ${countAll(levels.slice().sort((a,b)=>countAll(b)-countAll(a))[0])} 場`:""))
+    el("div",{class:"stat"},el("span",{class:"corner"},"♣"),el("div",{class:"k"},"最熱門級別"),el("div",{class:"v"},hot||"-"),el("div",{class:"s"},hot?`全台中共 ${countAll(hot)} 場`:""))
   );
   const order=[ME, ...assocs.filter(a=>a!==ME).sort((a,b)=>count(b)-count(a)||assocs.indexOf(a)-assocs.indexOf(b))].filter(a=>assocs.includes(a));
   const avg=l=>{ if(!others.length) return 0; const v=others.reduce((s,a)=>s+count(a,l),0)/others.length; return Math.round(v*10)/10; };
@@ -296,12 +364,12 @@ function renderDaily(){
     el("td",{},count(a)?el("b",{},count(a)):el("span",{class:"zero"},"-")),
     ...levels.map(l=>{const n=count(a,l);return el("td",{},n?el("span",{class:"chip",cvar:color(a)},n):el("span",{class:"zero"},"·"));}));
   const rows=[];
-  if (order[0]===ME){ rows.push(rowFor(ME)); rows.push(el("tr",{class:"avg"},el("td",{class:"name",style:"cursor:default"},"其他協會平均（有開賽）"),el("td",{},avg(null)),...levels.map(l=>el("td",{},avg(l)||"·")))); }
+  if (order[0]===ME){ rows.push(rowFor(ME)); rows.push(el("tr",{class:"avg"},el("td",{class:"name",style:"cursor:default"},"其他協會平均（有開賽）"),el("td",{},Math.round(othersAvg*10)/10),...levels.map(l=>el("td",{},avg(l)||"·")))); }
   order.filter(a=>a!==ME).forEach(a=>rows.push(rowFor(a)));
   const table=el("div",{class:"scroll"},el("table",{class:"grid"},el("thead",{},thead),el("tbody",{},...rows)));
   const max=Math.max(1,...assocs.map(a=>count(a)));
-  const bars=el("div",{class:"bars"},...ranked.map(a=>el("div",{class:"bar"+(a===ME?" me":"")},el("span",{},label(a)),el("span",{class:"t"},el("i",{cvar:color(a),style:`width:${count(a)/max*100}%`})),el("b",{},count(a)))));
-  const parts=[stats,table,el("h2",{style:"margin-top:22px"},"場次排名"),bars];
+  const bars=el("div",{class:"rank-grid"},...ranked.map((a,i)=>el("div",{class:"rtile"+(a===ME?" me":""),cvar:color(a)},el("span",{class:"rn"},"#"+(ranked.filter(b=>count(b)>count(a)).length+1)),el("span",{class:"rname"},label(a)),el("span",{class:"rc"},count(a),el("small",{}," 場")))));
+  const parts=[hero,stats,table,el("h2",{style:"margin-top:22px"},"場次排名"),bars];
   if (state.selAssoc){
     const list=g.filter(x=>x.assoc===state.selAssoc).sort((a,b)=>levelSort(a.level,b.level)||(+a.no-+b.no));
     parts.push(el("h2",{style:"margin-top:22px"},label(state.selAssoc)+" · "+state.day+" 的每一場"));
@@ -324,23 +392,25 @@ function renderCalendar(){
   if (!state.month){ const t=new Date(today+"T00:00:00"); state.month=monthStart(t); }
   document.getElementById("mLabel").textContent=`${state.month.getFullYear()} 年 ${state.month.getMonth()+1} 月`;
   const assocs=[...new Set(state.cal.map(e=>e.assoc))].sort((a,b)=>(b===ME)-(a===ME));
-  leg.replaceChildren(...assocs.map(a=>el("button",{class:"fchip","aria-pressed":String(!state.hidden.has(a)),onclick:()=>{state.hidden.has(a)?state.hidden.delete(a):state.hidden.add(a);renderCalendar();}},el("span",{class:"sw",cvar:color(a)}),a)));
+  leg.replaceChildren(...assocs.map(a=>el("button",{class:"fchip","aria-pressed":String(!state.hidden.has(a)),onclick:()=>{state.hidden.has(a)?state.hidden.delete(a):state.hidden.add(a);renderCalendar();}},el("span",{class:"sw",cvar:color(a)}),label(a))));
   const shown=state.cal.filter(e=>!state.hidden.has(e.assoc));
   const first=state.month, off=(first.getDay()+6)%7, start=new Date(first); start.setDate(1-off);
   const grid=el("div",{class:"cal"},...["一","二","三","四","五","六","日"].map(d=>el("div",{class:"dow"},d)));
   for(let i=0;i<42;i++){
     const d=new Date(start); d.setDate(start.getDate()+i); const ds=fmt(d);
     if (i>=35 && d.getMonth()!==first.getMonth()) break;
-    const evs=shown.filter(e=>e.date===ds).sort((a,b)=>(a.time==="全天"?"00":a.time).localeCompare(b.time==="全天"?"00":b.time));
+    const evs=shown.filter(e=>e.date===ds).sort((a,b)=>((b.assoc===ME)-(a.assoc===ME))||(a.time==="全天"?"00":a.time).localeCompare(b.time==="全天"?"00":b.time));
     grid.append(el("div",{class:"day"+(d.getMonth()!==first.getMonth()?" out":"")+(ds===today?" today":"")},
       el("div",{class:"dn"},d.getDate()),
-      ...evs.map(e=>el("button",{class:"ev"+(ds<today?" past":""),cvar:color(e.assoc),title:`${e.assoc}｜${e.name}`,onclick:()=>{state.sel=e;renderDetail();}},(SUIT[e.type]||"♣")+" "+(e.time&&e.time!=="全天"?e.time+" ":"")+e.name))));
+      ...evs.map(e=>el("button",{class:"ev"+(e.assoc===ME?" ut":"")+(ds<today?" past":""),cvar:color(e.assoc),title:`${e.assoc}｜${e.name}`,onclick:()=>{state.sel=e;renderDetail();}},(e.assoc===ME?"♛ "+e.name:(SUIT[e.type]||"♣")+" "+(e.time&&e.time!=="全天"?e.time+" ":"")+e.name)))));
   }
-  body.replaceChildren(grid);
+  const utEv=state.cal.filter(e=>e.assoc===ME && (e.date>=today || (e.date.slice(0,7)===fmt(first).slice(0,7)))).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  const strip = utEv.length ? el("div",{class:"ut-strip"},el("div",{class:"ut-strip-h"},"♛ UT Poker 賽事與活動"),el("div",{class:"ut-strip-cards"},...utEv.map(e=>el("button",{class:"ut-ev"+(e.date<today?" past":""),onclick:()=>{state.sel=e;renderDetail();}},el("span",{class:"d"},e.date.slice(5).replace("-","/")+(e.time&&e.time!=="全天"?" "+e.time:"")),el("span",{class:"n"},(SUIT[e.type]||"♣")+" "+e.name),el("span",{class:"p"},[e.pool&&("保證 "+e.pool),e.fee&&("報名 "+e.fee)].filter(Boolean).join("・")))))) : null;
+  body.replaceChildren(...[strip,grid].filter(Boolean));
   const upcoming=shown.filter(e=>e.date>=today).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,12);
-  up.replaceChildren(...(upcoming.length?upcoming.map(e=>el("div",{class:"up",cvar:color(e.assoc)},
+  up.replaceChildren(...(upcoming.length?upcoming.map(e=>el("div",{class:"up"+(e.assoc===ME?" ut":""),cvar:color(e.assoc)},
     el("div",{class:"d"},e.date.slice(5).replace("-","/")+(e.date===today?" 今天":"")),
-    el("div",{},el("div",{class:"n"},(SUIT[e.type]||"♣")+" "+e.name),el("div",{class:"s"},[e.assoc,e.time,e.fee&&("報名 "+e.fee),e.pool&&("保證 "+e.pool)].filter(Boolean).join("・"))))):[el("p",{class:"hint"},"目前沒有即將到來的賽事。")]));
+    el("div",{},el("div",{class:"n"},(e.assoc===ME?"♛ ":"")+(SUIT[e.type]||"♣")+" "+e.name),el("div",{class:"s"},[e.assoc,e.time,e.fee&&("報名 "+e.fee),e.pool&&("保證 "+e.pool)].filter(Boolean).join("・"))))):[el("p",{class:"hint"},"目前沒有即將到來的賽事。")]));
   renderDetail();
 }
 function renderDetail(){
@@ -369,12 +439,12 @@ function renderPromos(){
   const showEnded=document.getElementById("promoEnded").checked;
   const order={on:0,soon:1,always:2,off:3};
   const list=state.promos.filter(p=>(!sa.value||p.assoc===sa.value)&&(!st.value||p.type===st.value)&&(showEnded||promoStatus(p)[1]!=="off"))
-    .sort((a,b)=>order[promoStatus(a)[1]]-order[promoStatus(b)[1]]||as.indexOf(a.assoc)-as.indexOf(b.assoc));
+    .sort((a,b)=>((b.assoc===ME)-(a.assoc===ME))||order[promoStatus(a)[1]]-order[promoStatus(b)[1]]||as.indexOf(a.assoc)-as.indexOf(b.assoc));
   if (!list.length){ body.replaceChildren(el("div",{class:"msg"},el("b",{},"沒有符合的活動"),"換個協會或類型試試看。")); return; }
   body.replaceChildren(el("div",{class:"promos"},...list.map(p=>{
     const [lab,cls]=promoStatus(p); const s=normDate(p.start), e=normDate(p.end);
-    return el("article",{class:"pr",cvar:color(p.assoc)},
-      el("div",{class:"top"},el("div",{},el("div",{class:"who"},p.assoc),el("h4",{},p.name)),el("span",{class:"pill "+cls},lab)),
+    return el("article",{class:"pr"+(p.assoc===ME?" ut":""),cvar:color(p.assoc)},
+      el("div",{class:"top"},el("div",{},el("div",{class:"who"},label(p.assoc)),el("h4",{},p.name)),el("span",{class:"pill "+cls},lab)),
       el("div",{class:"row",style:"gap:10px"},el("span",{class:"type"},p.type),el("span",{class:"when"},s||e?`${s||"即日起"} → ${e||"未定"}`:"常駐活動")),
       el("p",{},p.detail),
       p.src?el("div",{class:"when"},"來源："+p.src+(p.checked?"・確認於 "+p.checked:"")):null);
@@ -404,8 +474,9 @@ function renderTrend(){
     const tv=mk("text",{x:cx,y:y(acc)-5,"text-anchor":"middle",style:"fill:var(--gold)"}); tv.textContent=acc; svg.append(tv);
   });
   const legend=el("div",{class:"legend",style:"margin-top:10px"},...assocs.map(a=>el("span",{class:"fchip"},el("span",{class:"sw",cvar:color(a)}),a)));
-  const head=el("tr",{},el("th",{style:"text-align:left"},"日期"),el("th",{},"合計"),...assocs.map(a=>el("th",{},a)));
-  const rows=days.slice().reverse().map(d=>el("tr",{},el("td",{class:"name",style:"cursor:default"},d),el("td",{},el("b",{},state.games.filter(g=>g.day===d).length)),...assocs.map(a=>{const n=state.games.filter(g=>g.day===d&&g.assoc===a).length;return el("td",{},n?n:el("span",{class:"zero"},"-"));})));
+  const rankOf=d=>{const c=a=>state.games.filter(g=>g.day===d&&g.assoc===a).length; const m=c(ME); if(!m) return "—"; return "第 "+(assocs.filter(a=>c(a)>m).length+1)+" 名";};
+  const head=el("tr",{},el("th",{style:"text-align:left"},"日期"),el("th",{style:"color:#ffd447"},"♛ UT 排名"),el("th",{},"合計"),...assocs.map(a=>el("th",{style:a===ME?"color:#ffd447":null},label(a))));
+  const rows=days.slice().reverse().map(d=>el("tr",{},el("td",{class:"name",style:"cursor:default"},d),el("td",{style:"color:#ffd447;font-weight:700"},rankOf(d)),el("td",{},el("b",{},state.games.filter(g=>g.day===d).length)),...assocs.map(a=>{const n=state.games.filter(g=>g.day===d&&g.assoc===a).length;return el("td",{style:a===ME?"background:rgba(255,212,71,.16);font-weight:700;color:#ffd447":null},n?n:el("span",{class:"zero"},"-"));})));
   body.replaceChildren(el("div",{class:"scroll"},svg),legend,el("div",{class:"scroll",style:"margin-top:16px"},el("table",{class:"grid"},el("thead",{},head),el("tbody",{},...rows))));
 }
 
