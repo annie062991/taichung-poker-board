@@ -53,6 +53,12 @@ table.grid th{font-size:12px;color:var(--ivory-dim);font-weight:500;letter-spaci
 table.grid td.name{text-align:left;font-weight:700;cursor:pointer}
 table.grid tr.sel td{background:rgba(217,178,95,.12)}
 table.grid tr.total td{font-weight:700;color:var(--gold)}
+table.grid tr.me td{background:rgba(255,212,71,.16);font-weight:700}
+table.grid tr.me td.name{color:#ffd447}
+table.grid tr.avg td{color:var(--ivory-dim);font-style:italic;border-bottom:2px solid rgba(255,212,71,.5)}
+.bar.me span:first-child{color:#ffd447;font-weight:700}
+.stat.me{background:linear-gradient(160deg,#ffe58a,#f4c542)}
+.stat .s{font-size:12px;color:#6b6356}
 .chip{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;font:500 13px var(--f-num);color:var(--ink);background:var(--c,#ccc);border:3px dashed rgba(255,255,255,.75);box-shadow:0 2px 0 rgba(0,0,0,.4)}
 .zero{color:rgba(244,236,216,.25)}
 .sw{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:middle}
@@ -119,7 +125,7 @@ svg text{fill:var(--ivory-dim);font:11px var(--f-num)}
 <header class="rail"><div class="rail-in">
   <div>
     <h1><span class="suit">♠</span> 台中德撲牌桌情報</h1>
-    <div class="sub">12 家協會的每日場次、賽事行事曆和優惠活動，資料來自 Google 試算表</div>
+    <div class="sub">UT Poker 對標台中各協會：每日場次、賽事月曆與優惠活動，資料來自 Google 試算表</div>
   </div>
   <div class="status"><span class="dot" id="dot"></span><span id="statusText">正在連線 Google 試算表…</span></div>
 </div></header>
@@ -134,7 +140,7 @@ svg text{fill:var(--ivory-dim);font:11px var(--f-num)}
 
   <section class="panel" id="view-daily" role="tabpanel">
     <div class="row" style="justify-content:space-between">
-      <div><h2>每日場次</h2><p class="hint">點協會名稱，下方會列出那天的每一場</p></div>
+      <div><h2>每日場次對標</h2><p class="hint">UT Poker 固定在最上面，其他協會依場次多寡排序；點協會名稱可以看那天的每一場</p></div>
       <label class="row" style="gap:8px">營業日 <select id="daySel"></select></label>
     </div>
     <div id="dailyBody"><div class="msg"><b>洗牌中…</b>正在讀取「場次明細」</div></div>
@@ -181,9 +187,11 @@ const RANGES = {
   promos: "優惠活動!A1:I",
   assoc: "協會對照!A1:C"
 };
-const COLORS = {"市政華人":"#f28b82","樂玩北屯":"#8ab4f8","樂玩南屯":"#5f8fe0","樂玩逢甲":"#b5d0ff","菁英撲克":"#f6c75a","秀咖":"#c3a6ff","跑跑":"#ffab66","Check Raise":"#7fd49a","Cbet台中":"#6fd6cf","IPC洲際":"#b8b8b8","撲洛":"#ff9fcf","City Poker一中":"#e8e07a","樂玩（三店）":"#8ab4f8"};
+const COLORS = {"市政華人":"#f28b82","樂玩北屯":"#8ab4f8","樂玩南屯":"#5f8fe0","樂玩逢甲":"#b5d0ff","菁英撲克":"#f6c75a","秀咖":"#c3a6ff","跑跑":"#ffab66","Check Raise":"#7fd49a","Cbet台中":"#6fd6cf","IPC洲際":"#b8b8b8","撲洛":"#ff9fcf","City Poker一中":"#c6e06a","UT Poker":"#ffd447","樂玩（三店）":"#8ab4f8"};
 const SUIT = {"錦標賽":"♠","抽獎":"♦","活動":"♣","公休":"♥"};
+const ME = "UT Poker";
 const color = n => COLORS[n] || "#d9d3c2";
+const label = n => n===ME ? "♛ "+n : n;
 const state = {games:null, cal:null, promos:null, assoc:null, errors:{}, day:"", selAssoc:"", month:null, hidden:new Set(), sel:null};
 
 /* ---------- helpers ---------- */
@@ -223,7 +231,8 @@ function assocList(){
   const base = state.assoc ? state.assoc.map(a=>a.name).filter(Boolean) : [];
   const extra = new Set();
   (state.games||[]).forEach(g=>{ if(g.assoc && !base.includes(g.assoc)) extra.add(g.assoc); });
-  return base.concat([...extra]);
+  const all = base.concat([...extra]);
+  return all.includes(ME) ? [ME, ...all.filter(a=>a!==ME)] : all;
 }
 
 /* ---------- connection status ---------- */
@@ -260,35 +269,42 @@ function renderDaily(){
   if (state.errors.games) { body.replaceChildren(errorBox(state.errors.games, ()=>loadOnce("games"))); return; }
   if (!state.games) return;
   const days=[...new Set(state.games.map(g=>g.day).filter(Boolean))].sort().reverse();
-  if (!days.length){ body.replaceChildren(el("div",{class:"msg"},el("b",{},"還沒有場次"),"每天早上 10 點自動記錄後，這裡就會出現資料。")); return; }
+  if (!days.length){ body.replaceChildren(el("div",{class:"msg"},el("b",{},"還沒有場次"),"每天自動記錄後，這裡就會出現資料。")); return; }
   if (!state.day || !days.includes(state.day)) state.day=days[0];
   sel.replaceChildren(...days.map(d=>el("option",{value:d, selected:d===state.day?"":null}, d+"（"+"日一二三四五六"[new Date(d+"T00:00:00").getDay()]+"）")));
   const g=state.games.filter(x=>x.day===state.day);
   const assocs=assocList();
   const levels=[...new Set(g.map(x=>x.level))].sort(levelSort);
   const count=(a,l)=>g.filter(x=>x.assoc===a&&(l==null||x.level===l)).length;
-  const active=assocs.filter(a=>count(a)>0);
-  const top=active.slice().sort((a,b)=>count(b)-count(a))[0];
+  const ranked=assocs.filter(a=>count(a)>0).sort((a,b)=>count(b)-count(a));
+  const mine=count(ME), top=ranked[0];
+  const rank = mine ? ranked.filter(a=>count(a)>mine).length+1 : null;
+  const others=ranked.filter(a=>a!==ME);
+  const hotLevel=levels.slice().sort((a,b)=>count(null,b)-count(null,a))[0];
+  const countAll=l=>g.filter(x=>x.level===l).length;
   const stats=el("div",{class:"stats"},
-    el("div",{class:"stat"},el("span",{class:"corner"},"♠"),el("div",{class:"k"},"當日總場次"),el("div",{class:"v"},g.length)),
-    el("div",{class:"stat"},el("span",{class:"corner"},"♦"),el("div",{class:"k"},"有開賽的協會"),el("div",{class:"v"},active.length+" / "+assocs.length)),
-    el("div",{class:"stat"},el("span",{class:"corner"},"♣"),el("div",{class:"k"},"最熱門級別"),el("div",{class:"v"},levels.slice().sort((a,b)=>g.filter(x=>x.level===b).length-g.filter(x=>x.level===a).length)[0]||"-")),
-    el("div",{class:"stat"},el("span",{class:"corner"},"♥"),el("div",{class:"k"},"場次最多"),el("div",{class:"v",style:"font-size:20px;font-family:var(--f-display);padding-top:8px"},top||"-"))
+    el("div",{class:"stat me"},el("span",{class:"corner"},"♛"),el("div",{class:"k"},"UT Poker 當日場次"),el("div",{class:"v"},mine),el("div",{class:"s"},mine&&top&&top!==ME?`比第一名少 ${count(top)-mine} 場`:(mine?"今天場次最多":"這天沒有記到 UT 的場次"))),
+    el("div",{class:"stat"},el("span",{class:"corner"},"♠"),el("div",{class:"k"},"UT Poker 排名"),el("div",{class:"v"},rank?`第 ${rank} 名`:"—"),el("div",{class:"s"},`共 ${ranked.length} 家有開賽`)),
+    el("div",{class:"stat"},el("span",{class:"corner"},"♥"),el("div",{class:"k"},"場次最多"),el("div",{class:"v",style:"font-size:20px;font-family:var(--f-display);padding-top:8px"},top?label(top):"-"),el("div",{class:"s"},top?`${count(top)} 場`:"")),
+    el("div",{class:"stat"},el("span",{class:"corner"},"♣"),el("div",{class:"k"},"最熱門級別"),el("div",{class:"v"},levels.slice().sort((a,b)=>countAll(b)-countAll(a))[0]||"-"),el("div",{class:"s"},levels.length?`全台中共 ${countAll(levels.slice().sort((a,b)=>countAll(b)-countAll(a))[0])} 場`:""))
   );
+  const order=[ME, ...assocs.filter(a=>a!==ME).sort((a,b)=>count(b)-count(a)||assocs.indexOf(a)-assocs.indexOf(b))].filter(a=>assocs.includes(a));
+  const avg=l=>{ if(!others.length) return 0; const v=others.reduce((s,a)=>s+count(a,l),0)/others.length; return Math.round(v*10)/10; };
   const thead=el("tr",{},el("th",{style:"text-align:left"},"協會"),el("th",{},"總場次"),...levels.map(l=>el("th",{},l)));
-  const tot=el("tr",{class:"total"},el("td",{class:"name",style:"cursor:default"},"合計"),el("td",{},g.length),...levels.map(l=>el("td",{},g.filter(x=>x.level===l).length)));
-  const rows=assocs.map(a=>el("tr",{class:state.selAssoc===a?"sel":null},
-    el("td",{class:"name",tabindex:"0",onclick:()=>{state.selAssoc=state.selAssoc===a?"":a;renderDaily();},onkeydown:e=>{if(e.key==="Enter"){state.selAssoc=state.selAssoc===a?"":a;renderDaily();}}},el("span",{class:"sw",cvar:color(a)}),a),
+  const rowFor=a=>el("tr",{class:(a===ME?"me":"")+(state.selAssoc===a?" sel":"")},
+    el("td",{class:"name",tabindex:"0",onclick:()=>{state.selAssoc=state.selAssoc===a?"":a;renderDaily();},onkeydown:e=>{if(e.key==="Enter"){state.selAssoc=state.selAssoc===a?"":a;renderDaily();}}},el("span",{class:"sw",cvar:color(a)}),label(a)),
     el("td",{},count(a)?el("b",{},count(a)):el("span",{class:"zero"},"-")),
-    ...levels.map(l=>{const n=count(a,l);return el("td",{},n?el("span",{class:"chip",cvar:color(a)},n):el("span",{class:"zero"},"·"));})
-  ));
-  const table=el("div",{class:"scroll"},el("table",{class:"grid"},el("thead",{},thead),el("tbody",{},tot,...rows)));
+    ...levels.map(l=>{const n=count(a,l);return el("td",{},n?el("span",{class:"chip",cvar:color(a)},n):el("span",{class:"zero"},"·"));}));
+  const rows=[];
+  if (order[0]===ME){ rows.push(rowFor(ME)); rows.push(el("tr",{class:"avg"},el("td",{class:"name",style:"cursor:default"},"其他協會平均（有開賽）"),el("td",{},avg(null)),...levels.map(l=>el("td",{},avg(l)||"·")))); }
+  order.filter(a=>a!==ME).forEach(a=>rows.push(rowFor(a)));
+  const table=el("div",{class:"scroll"},el("table",{class:"grid"},el("thead",{},thead),el("tbody",{},...rows)));
   const max=Math.max(1,...assocs.map(a=>count(a)));
-  const bars=el("div",{class:"bars"},...active.slice().sort((a,b)=>count(b)-count(a)).map(a=>el("div",{class:"bar"},el("span",{},a),el("span",{class:"t"},el("i",{cvar:color(a),style:`width:${count(a)/max*100}%`})),el("b",{},count(a)))));
-  const parts=[stats,table,bars];
+  const bars=el("div",{class:"bars"},...ranked.map(a=>el("div",{class:"bar"+(a===ME?" me":"")},el("span",{},label(a)),el("span",{class:"t"},el("i",{cvar:color(a),style:`width:${count(a)/max*100}%`})),el("b",{},count(a)))));
+  const parts=[stats,table,el("h2",{style:"margin-top:22px"},"場次排名"),bars];
   if (state.selAssoc){
     const list=g.filter(x=>x.assoc===state.selAssoc).sort((a,b)=>levelSort(a.level,b.level)||(+a.no-+b.no));
-    parts.push(el("h2",{style:"margin-top:22px"},state.selAssoc+" · "+state.day+" 的每一場"));
+    parts.push(el("h2",{style:"margin-top:22px"},label(state.selAssoc)+" · "+state.day+" 的每一場"));
     parts.push(list.length?el("div",{class:"cards"},...list.map(x=>el("div",{class:"pc",cvar:color(x.assoc)},
       el("span",{class:"no"},"#"+(x.no||"?")),el("div",{class:"lv"},x.level),
       el("div",{class:"ln"},"開賽 "+(x.start||"—")+(x.announced?"（公告）":"")),
@@ -307,7 +323,7 @@ function renderCalendar(){
   const today=todayStr();
   if (!state.month){ const t=new Date(today+"T00:00:00"); state.month=monthStart(t); }
   document.getElementById("mLabel").textContent=`${state.month.getFullYear()} 年 ${state.month.getMonth()+1} 月`;
-  const assocs=[...new Set(state.cal.map(e=>e.assoc))];
+  const assocs=[...new Set(state.cal.map(e=>e.assoc))].sort((a,b)=>(b===ME)-(a===ME));
   leg.replaceChildren(...assocs.map(a=>el("button",{class:"fchip","aria-pressed":String(!state.hidden.has(a)),onclick:()=>{state.hidden.has(a)?state.hidden.delete(a):state.hidden.add(a);renderCalendar();}},el("span",{class:"sw",cvar:color(a)}),a)));
   const shown=state.cal.filter(e=>!state.hidden.has(e.assoc));
   const first=state.month, off=(first.getDay()+6)%7, start=new Date(first); start.setDate(1-off);
@@ -347,7 +363,7 @@ function renderPromos(){
   if (state.errors.promos){ body.replaceChildren(errorBox(state.errors.promos, ()=>loadOnce("promos"))); return; }
   if (!state.promos) return;
   const keepA=sa.value, keepT=st.value;
-  const as=[...new Set(state.promos.map(p=>p.assoc))], ts=[...new Set(state.promos.map(p=>p.type).filter(Boolean))];
+  const as=[...new Set(state.promos.map(p=>p.assoc))].sort((a,b)=>(b===ME)-(a===ME)), ts=[...new Set(state.promos.map(p=>p.type).filter(Boolean))];
   sa.replaceChildren(el("option",{value:""},"全部協會"),...as.map(a=>el("option",{value:a,selected:a===keepA?"":null},a)));
   st.replaceChildren(el("option",{value:""},"全部類型"),...ts.map(a=>el("option",{value:a,selected:a===keepT?"":null},a)));
   const showEnded=document.getElementById("promoEnded").checked;
