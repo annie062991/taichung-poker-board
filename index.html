@@ -119,7 +119,7 @@ svg text{fill:var(--ivory-dim);font:11px var(--f-num)}
 <header class="rail"><div class="rail-in">
   <div>
     <h1><span class="suit">♠</span> 台中德撲牌桌情報</h1>
-    <div class="sub">11 家協會的每日場次、賽事行事曆和優惠活動，資料來自 Google 試算表</div>
+    <div class="sub">12 家協會的每日場次、賽事行事曆和優惠活動，資料來自 Google 試算表</div>
   </div>
   <div class="status"><span class="dot" id="dot"></span><span id="statusText">正在連線 Google 試算表…</span></div>
 </div></header>
@@ -181,7 +181,7 @@ const RANGES = {
   promos: "優惠活動!A1:I",
   assoc: "協會對照!A1:C"
 };
-const COLORS = {"市政華人":"#f28b82","樂玩北屯":"#8ab4f8","樂玩南屯":"#5f8fe0","樂玩逢甲":"#b5d0ff","菁英撲克":"#f6c75a","秀咖":"#c3a6ff","跑跑":"#ffab66","Check Raise":"#7fd49a","Cbet台中":"#6fd6cf","IPC洲際":"#b8b8b8","撲洛":"#ff9fcf","樂玩（三店）":"#8ab4f8"};
+const COLORS = {"市政華人":"#f28b82","樂玩北屯":"#8ab4f8","樂玩南屯":"#5f8fe0","樂玩逢甲":"#b5d0ff","菁英撲克":"#f6c75a","秀咖":"#c3a6ff","跑跑":"#ffab66","Check Raise":"#7fd49a","Cbet台中":"#6fd6cf","IPC洲際":"#b8b8b8","撲洛":"#ff9fcf","City Poker一中":"#e8e07a","樂玩（三店）":"#8ab4f8"};
 const SUIT = {"錦標賽":"♠","抽獎":"♦","活動":"♣","公休":"♥"};
 const color = n => COLORS[n] || "#d9d3c2";
 const state = {games:null, cal:null, promos:null, assoc:null, errors:{}, day:"", selAssoc:"", month:null, hidden:new Set(), sel:null};
